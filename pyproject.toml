@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "virtual-bg"
+version = "0.1.0"
+description = "Hardware-free virtual background and background blur for any video-calling app"
+authors = [{ name = "Peter" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24",
+    "opencv-python>=4.8",
+    "mediapipe>=0.10.9",
+    "pyvirtualcam>=0.11",
+    "pillow>=10.0",
+]
+
+[project.scripts]
+vbg = "vbg.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
