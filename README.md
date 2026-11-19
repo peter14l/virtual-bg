@@ -96,6 +96,16 @@ Reduce background "spots" / edge flicker (temporal mask smoothing, default 0.6; 
 python run.py --smooth 0.7
 ```
 
+Edge refinement and motion smoothing options:
+
+```bash
+# Edge refinement with Fast Guided Filter is enabled by default. To disable:
+python run.py --no-guided-filter
+
+# Motion-adaptive smoothing avoids ghosting on fast movement; to use static EMA instead:
+python run.py --no-motion-adaptive
+```
+
 Force a specific backend/device:
 
 ```bash

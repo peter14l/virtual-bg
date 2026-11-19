@@ -21,6 +21,8 @@ class Config:
     # Segmentation
     model_selection: int = 0         # 0 = general, 1 = landscape
     smooth: float = 0.6              # temporal mask smoothing (0 = off, 1 = max)
+    guided_filter: bool = True       # edge refinement using fast guided filter
+    motion_adaptive: bool = True     # adapt temporal smoothing to motion to avoid ghosting
     # Virtual camera
     vcam_name: str = "Virtual Background Cam"
     vcam_backend: Optional[str] = None   # None = auto, or "obs" | "unitycapture"

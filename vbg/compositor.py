@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import os
+from typing import Optional, Tuple
+
 import cv2
 import numpy as np
-from typing import Optional, Tuple
 
 from vbg.config import Config
 
@@ -32,6 +34,8 @@ class Compositor:
         if kind == "image":
             if not image_path:
                 raise ValueError("image_path required for 'image' background")
+            if not os.path.isfile(image_path):
+                raise FileNotFoundError(f"Failed to load background image: {image_path}")
             img = cv2.imread(image_path)
             if img is None:
                 raise FileNotFoundError(f"Failed to load background image: {image_path}")
@@ -63,7 +67,7 @@ class Compositor:
         if mask.ndim == 3 and mask.shape[2] == 1:
             mask = mask.squeeze(2)
         mask = mask.astype(np.float32, copy=False)
-        mask = cv2.GaussianBlur(mask, (0, 0), sigmaX=2)
+        mask = cv2.GaussianBlur(mask, (0, 0), sigmaX=1.0)
         np.clip(mask, 0.0, 1.0, out=mask)
 
         if self.kind == "blur":

@@ -52,7 +52,10 @@ class Pipeline:
         self._capture.start()
 
         self._segmenter = PersonSegmenter(
-            self.config.model_selection, smooth=self.config.smooth
+            self.config.model_selection,
+            smooth=self.config.smooth,
+            refine_edges=self.config.guided_filter,
+            motion_adaptive=self.config.motion_adaptive,
         )
         self._compositor = Compositor(self.config)
 

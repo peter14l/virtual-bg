@@ -45,3 +45,16 @@ def test_cli_setup_flags():
     assert build_parser().parse_args(["--install"]).install is True
     assert build_parser().parse_args(["--uninstall"]).uninstall is True
     assert build_parser().parse_args(["--check"]).check is True
+
+
+def test_cli_filter_and_motion_flags():
+    from vbg.cli import build_parser
+
+    parser = build_parser()
+    args_default = parser.parse_args([])
+    assert args_default.no_guided_filter is False
+    assert args_default.no_motion_adaptive is False
+
+    args_custom = parser.parse_args(["--no-guided-filter", "--no-motion-adaptive"])
+    assert args_custom.no_guided_filter is True
+    assert args_custom.no_motion_adaptive is True

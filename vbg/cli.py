@@ -61,6 +61,16 @@ def build_parser() -> argparse.ArgumentParser:
         default=0.6,
         help="Temporal mask smoothing 0..1 (higher = less flicker, more lag; default: 0.6)",
     )
+    p.add_argument(
+        "--no-guided-filter",
+        action="store_true",
+        help="Disable Fast Guided Filter edge refinement",
+    )
+    p.add_argument(
+        "--no-motion-adaptive",
+        action="store_true",
+        help="Disable motion-adaptive temporal smoothing (use fixed EMA)",
+    )
     p.add_argument("--name", default="Virtual Background Cam", help="Virtual camera display name")
     p.add_argument("--no-mirror", action="store_true", help="Disable horizontal mirroring")
     p.add_argument("--preview", action="store_true", help="Show a local preview window")
@@ -145,6 +155,8 @@ def main(argv: Optional[list] = None) -> int:
     cfg.blur_strength = args.blur
     cfg.model_selection = args.model
     cfg.smooth = args.smooth
+    cfg.guided_filter = not args.no_guided_filter
+    cfg.motion_adaptive = not args.no_motion_adaptive
     cfg.vcam_name = args.name
     cfg.mirror = not args.no_mirror
     cfg.show_preview = args.preview
